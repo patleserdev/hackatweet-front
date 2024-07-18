@@ -36,6 +36,26 @@
    transform: rotate(180deg);
 }
 
+.left .bottomBox
+{
+width: 100%;
+margin-bottom: 20px;
+}
+
+.left .bottomBox .logout
+{
+    margin-left:20px;
+    padding:5px;
+    padding-left:20px;
+    padding-right:20px;
+    font-weight: bold;
+    border-radius: 25px;
+    border:1px solid #fff;
+    background-color: #161D26;
+    color:#fff;
+    cursor: pointer;
+}
+
 .left .userInfo
 {
     width: 80%;

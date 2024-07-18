@@ -13,6 +13,7 @@ export const userSlice = createSlice({
    addUserToStore: (state, action) => {
      state.value= (action.payload);
    },
+ 
  },
 });
 

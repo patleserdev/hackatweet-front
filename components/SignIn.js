@@ -4,14 +4,21 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { addUserToStore } from '../reducers/user';
 
+import { useSelector } from 'react-redux';
+
+import { useRouter } from 'next/router'
+ 
 function SignIn() {
+
+  const router = useRouter()
+
   const dispatch = useDispatch();
 
   const [inputUserName, setInputUserName] = useState('')
   const [inputPassword, setInputPassword] = useState('')
 
   const [errorMessage, setErrorMessage] = useState('')
-
+  const user = useSelector((state) => state.user.value)
   function SignInUser()
   {
         // on click 
@@ -25,7 +32,7 @@ function SignIn() {
         })
         .then(response => response.json())
         .then((data)=> {
-          console.log(data)
+          //console.log(data)
           if (!data.result)
           {
             setErrorMessage(data.error)
@@ -34,8 +41,15 @@ function SignIn() {
           {
             setErrorMessage('')
             // connect to the site
-            dispatch(addUserToStore(data));
-            window.location.href = "/home";
+            
+            if (dispatch(addUserToStore({firstname:data.firstname,username:data.username,token:data.token})))
+            {   
+             // console.log(user)
+              
+              router.push('/home')            
+            }
+
+           
           }
         })
       

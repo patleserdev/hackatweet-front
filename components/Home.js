@@ -19,30 +19,49 @@ import Trends from './Trends'
 import Link from 'next/link'
 import Image from 'next/image'
 
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { addUserToStore } from '../reducers/user';
+import { useRouter } from 'next/router'
+
 function Home() {
+
+  const dispatch = useDispatch();
+  const router = useRouter()
+  const user = useSelector((state) => state.user.value);
+
+  //deconnexion et retour sur page login
+  function handeLogout(){
+    dispatch(addUserToStore({}));
+    router.push('/')     
+  }
+
+  
+
   return (
     <div>
       <main className={styles.main}>
        
        <div className={styles.left}>
        <div className={styles.logo}>
-        <Link href='/home'>
+       
         <Image className={styles.logoImg} title="Go to home page" src="/pictures/grand-logo-twitter.png" alt="logo" 
          width={50} height={50} />
-        </Link>
-        </div>
-
-
-        <div className={styles.userInfo}>
-        
-        <FontAwesomeIcon className={styles.avatar} icon={faUser} />
-        <div className={styles.userInfoContent}>
-        <div className={styles.firstname}>firstname</div>
-        <div className={styles.username}>@Username</div>
         
         </div>
-        
 
+        <div className={styles.bottomBox}>
+          <div className={styles.userInfo}>
+          
+          <FontAwesomeIcon className={styles.avatar} icon={faUser} />
+          <div className={styles.userInfoContent}>
+          <div className={styles.firstname}>{user.firstname}</div>
+          <div className={styles.username}>@{user.username}</div>
+          
+          </div>
+          </div>
+          <button className={styles.logout} onClick={()=> {handeLogout()}} >Logout</button>
+        
         </div>
 
        </div>

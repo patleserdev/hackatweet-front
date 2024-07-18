@@ -64,9 +64,9 @@ function Login() {
 
             <div className={styles.right}>
               <div>
-                <Link href="/" >
+                
                   <Image title="Go to login page" src="/pictures/grand-logo-twitter.png" alt="logo" className={styles.logo} width={50} height={50} />
-                </Link>
+                
               </div>
               <h1 className={styles.title}>
                 See what's happening
