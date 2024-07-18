@@ -32,13 +32,20 @@ width: 50%;
 font-weight: bold;
 border: 1px solid lightgray;
 border-radius: 5px;
+color:#fff;
 }
 
-.form .input:focus
+.form .input[type=text]
 {
+    color:#fff;
+    
+}
+
+.form .input[type=text]:focus
+{
+    color:#000;
     background-color: #ffffff;   
 }
-
 .button
 {
     margin-top:10px;

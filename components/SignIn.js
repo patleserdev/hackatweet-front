@@ -34,8 +34,8 @@ function SignIn() {
           {
             setErrorMessage('')
             // connect to the site
-            dispatch(addUserToStore(data.token));
-            // window.location.href = "/home";
+            dispatch(addUserToStore(data));
+            window.location.href = "/home";
           }
         })
       

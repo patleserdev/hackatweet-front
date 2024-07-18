@@ -29,7 +29,10 @@ function SignUp() {
           }
           else
           {
+            setErrorMessage('')
             // connect to the site
+            dispatch(addUserToStore(data));
+            window.location.href = "/home";
           }
         })
       
@@ -42,7 +45,7 @@ function SignUp() {
             <div className={styles.form}>
             <input className={styles.input} type="text" id="sufname" placeholder="Firstname" 
             onChange={(e) => setInputFirstName(e.target.value)} value={inputFirstName}/>
-            
+
             <input className={styles.input} type="text" id="suuname" placeholder="Username" 
             onChange={(e) => setInputUserName(e.target.value)} value={inputUserName}/>
 

@@ -1,18 +1,98 @@
 .main
 {
     height:100vh;
+    background-color: #161D26;
+    display: flex;
+    flex-direction: row;
 }
 
+/************* left *************/
 .left
 {
-    height: 100%;
-    border:1px solid red;
-    width: 40%;
+    height: 100vh;
+
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start ;
+    justify-content: space-between;
 }
 
+.left .logo
+{
+    width: 30%;
+    height:10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin:20px;
+}
+
+.left .logoImg
+{
+
+   filter: invert();
+   transform: rotate(180deg);
+}
+
+.left .userInfo
+{
+    width: 80%;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin:20px;
+}
+
+.firstname
+{
+    font-weight: bold;
+}
+
+.username
+{
+    font-weight: normal;
+    color:rgb(219, 215, 215)
+}
+
+.left .avatar
+{
+    color:#fff;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    padding:15px;
+    border-radius:50px;
+    background-color: #4D8BC2;
+}
+
+.left .userInfoContent
+{
+    color:#fff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding:20px;
+}
+/************* center *************/
+.center
+{
+    height: 100vh;
+    border:1px solid green;
+    width: 50%;
+}
+
+
+/************* right *************/
 .right
 {
-    height: 100%;
+    height: 100vh;
     border:1px solid green;
-    width: 60%;
+    width: 30%;
 }

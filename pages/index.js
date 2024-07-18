@@ -5,10 +5,6 @@ function Index() {
   return (
   <>
 
-  <Link href="/">Login</Link>&nbsp;
-   <Link href="/home">Home</Link>&nbsp;
-   <Link href="/hashtag">Hashtag</Link>
-
    <Login />;
 
    </>
