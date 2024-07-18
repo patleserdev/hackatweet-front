@@ -1,0 +1,23 @@
+.main
+{
+    height:100vh;
+    display: flex;
+}
+
+.left
+{
+    height: 100%;
+    border:1px solid red;
+    width: 40%;
+    background: url('../public/pictures/Twitter-generic-hero-whats-happening.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.right
+{
+    height: 100%;
+    border:1px solid green;
+    width: 60%;
+}

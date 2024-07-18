@@ -6,15 +6,29 @@ Au clic sur le bouton dans la modale, l’application communique avec les backen
 */
 import styles from '../styles/Login.module.css';
 
+import Signin from './SignIn'
+import SignUp from './SignUp.js';
 
 function Login() {
     return (
         <div>
           <main className={styles.main}>
-        
-            <h1 className={styles.title}>
-              Welcome to login
-            </h1>
+
+            <div className={styles.left}></div>
+
+            <div className={styles.right}>
+
+              <h1 className={styles.title}>
+                Welcome to login
+              </h1>
+
+              <Signin/>
+
+              <SignUp/>
+
+            </div>
+
+          
           </main>
         </div>
       );

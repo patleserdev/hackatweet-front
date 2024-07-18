@@ -1,0 +1,18 @@
+.main
+{
+    height:100vh;
+}
+
+.left
+{
+    height: 100%;
+    border:1px solid red;
+    width: 40%;
+}
+
+.right
+{
+    height: 100%;
+    border:1px solid green;
+    width: 60%;
+}
