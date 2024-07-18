@@ -16,5 +16,5 @@ export const userSlice = createSlice({
  },
 });
 
-export const { addFriendToStore } = userSlice.actions;
+export const { addUserToStore } = userSlice.actions;
 export default userSlice.reducer;

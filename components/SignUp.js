@@ -37,13 +37,19 @@ function SignUp() {
 
     return (
         <div className={styles.main}>
-        <h1>SignUp</h1>
+        
             <h2>Create your Hackatweet account</h2>
             <div className={styles.form}>
-            <input type="text" id="sufname" placeholder="Firstname" onChange={(e) => setInputFirstName(e.target.value)} value={inputFirstName}/>
-            <input type="text" id="suuname" placeholder="Username" onChange={(e) => setInputUserName(e.target.value)} value={inputUserName}/>
-            <input type="password" id="supassword" placeholder="Password" onChange={(e) => setInputPassword(e.target.value)} value={inputPassword} />
-            <button onClick={() => { SignUpNewUser() }}>Sign up</button>
+            <input className={styles.input} type="text" id="sufname" placeholder="Firstname" 
+            onChange={(e) => setInputFirstName(e.target.value)} value={inputFirstName}/>
+            
+            <input className={styles.input} type="text" id="suuname" placeholder="Username" 
+            onChange={(e) => setInputUserName(e.target.value)} value={inputUserName}/>
+
+            <input className={styles.input} type="password" id="supassword" placeholder="Password" 
+            onChange={(e) => setInputPassword(e.target.value)} value={inputPassword} />
+
+            <button className={styles.button} onClick={() => { SignUpNewUser() }}>Sign up</button>
             <div style={{color:'red',marginTop:'10px'}}>{errorMessage}</div>
             </div>
         </div>

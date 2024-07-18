@@ -6,25 +6,81 @@ Au clic sur le bouton dans la modale, l’application communique avec les backen
 */
 import styles from '../styles/Login.module.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+
 import Signin from './SignIn'
 import SignUp from './SignUp.js';
+import { useState } from 'react';
+import Image from 'next/image'
+import Link from 'next/link'
 
 function Login() {
+
+  const [modal,setModal]=useState(false)
+
+  const [displaySignUp,setDisplaySignUp]=useState(false)
+  const [displaySignIn,setDisplaySignIn]=useState(false)
+
+  function openSignUp(){
+    setModal(true)
+    setDisplaySignUp(true)
+    setDisplaySignIn(false)
+  }
+
+  function openSignIn(){
+    setModal(true)
+    setDisplaySignIn(true)
+    setDisplaySignUp(false)
+  }
+  
     return (
         <div>
           <main className={styles.main}>
+            
+
+            { modal && <div className={styles.modal}>
+
+
+              <div className={styles.modalBox}>
+
+              <FontAwesomeIcon onClick={() => {setModal(false)}} className={styles.close} icon={faXmark} />
+
+                <div className={styles.signBlock}>
+                <Image title="Go to login page" src="/pictures/grand-logo-twitter.png" alt="logo" 
+                className={styles.logo} width={50} height={50} />
+
+                { displaySignUp && <SignUp/> }
+
+                { displaySignIn &&  <Signin/>}
+                </div>
+              </div>
+
+            </div>}
+
+        
 
             <div className={styles.left}></div>
 
             <div className={styles.right}>
-
+              <div>
+                <Link href="/" >
+                  <Image title="Go to login page" src="/pictures/grand-logo-twitter.png" alt="logo" className={styles.logo} width={50} height={50} />
+                </Link>
+              </div>
               <h1 className={styles.title}>
-                Welcome to login
+                See what's happening
               </h1>
 
-              <Signin/>
+              <h2>Join Hackatweet today.</h2>
 
-              <SignUp/>
+              <button onClick={()=> {openSignUp()} } className={styles.blueButton}>Sign up</button>
+              <p> Already have an account</p>
+              <button onClick={()=> {openSignIn()} } className={styles.classicButton}>Sign in</button>
+
+             
+
+              
 
             </div>
 

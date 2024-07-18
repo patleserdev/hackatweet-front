@@ -1,23 +1,148 @@
+.link
+{
+    cursor:pointer
+}
+
 .main
 {
     height:100vh;
     display: flex;
+    position:relative;
 }
+
+
 
 .left
 {
     height: 100%;
-    border:1px solid red;
     width: 40%;
     background: url('../public/pictures/Twitter-generic-hero-whats-happening.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
+    background-position: center center; 
 }
 
 .right
 {
     height: 100%;
-    border:1px solid green;
     width: 60%;
+    padding:20px;
+    background: #161D26;
+    color:#fff;
+}
+
+.right .logo
+{
+    transform: rotate(180deg);
+    filter:invert();
+    cursor:pointer
+    
+}
+.signBlock .logo
+{
+    transform: rotate(180deg);
+    filter:invert();
+}
+
+.right h1
+{
+    font-size:5rem;
+    width: 50%;
+    font-family: 'Mont-Heavy';
+}
+
+.right h2
+{
+    font-size:2rem;
+    width: 50%;
+    font-family: 'Mont-Heavy';
+}
+
+/***********modal***********/
+.modal
+{
+position:absolute;
+top:0;
+left:0;
+width: 100%;
+height: 100vh;
+background: rgba(0,0,0,0.3);
+display: flex;
+align-items: flex-start;
+justify-content: center;
+z-index:100;
+}
+
+.modalBox
+{
+    position: relative;
+    background: #161D26;
+    margin-top:50px;
+    width: 33%;
+    height: 50%;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px #000;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signBlock
+{
+    width: 100%;
+    height: 100%;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top:50px;
+}
+
+.close
+{
+    position: absolute;
+    right: 0;
+    top:0;
+    margin:10px;
+    color:#fff;
+    font-size: large;
+    cursor: pointer;
+}
+
+.blueButton
+{
+ padding:10px;
+ padding-left:60px;
+ padding-right:60px;   
+ background-color: rgb(63, 147, 232,1);
+ color:#fff;
+ font-weight: bolder;
+ font-size: 1rem;
+ border-radius: 25px;
+ transition: 0.5s all;
+ cursor: pointer;
+}
+.blueButton:hover
+{
+    background-color: rgb(63, 147, 232,0.7);
+}
+
+.classicButton
+{
+ padding:10px;
+ padding-left:60px;
+ padding-right:60px;   
+ background-color: rgb(22, 29, 38,0);
+ color:#fff;
+ font-weight: bolder;
+ font-size: 1rem;
+ border-radius: 25px;
+ transition: 0.5s all;
+ cursor: pointer;
+}
+
+.classicButton:hover
+{
+background-color: rgb(53, 70, 92);
 }

@@ -1,14 +1,16 @@
 import styles from '../styles/Signin.module.css';
-
 import { useState } from 'react'
 
+import { useDispatch } from 'react-redux';
+import { addUserToStore } from '../reducers/user';
+
 function SignIn() {
+  const dispatch = useDispatch();
 
   const [inputUserName, setInputUserName] = useState('')
   const [inputPassword, setInputPassword] = useState('')
 
   const [errorMessage, setErrorMessage] = useState('')
-  
 
   function SignInUser()
   {
@@ -30,7 +32,10 @@ function SignIn() {
           }
           else
           {
+            setErrorMessage('')
             // connect to the site
+            dispatch(addUserToStore(data.token));
+            // window.location.href = "/home";
           }
         })
       
@@ -38,12 +43,16 @@ function SignIn() {
 
     return (
       <div className={styles.main}>
-      <h1>SignIn</h1>
+     
           <h2>Connect to Hackatweet </h2>
           <div className={styles.form}>
-          <input type="text" id="siuname" placeholder="Username" onChange={(e) => setInputUserName(e.target.value)} value={inputUserName}/>
-          <input type="password" id="sipassword" placeholder="Password" onChange={(e) => setInputPassword(e.target.value)} value={inputPassword}/>
-          <button onClick={() => { SignInUser() }}>Sign in</button>
+          <input className={styles.input} type="text" id="siuname" placeholder="Username" 
+          onChange={(e) => setInputUserName(e.target.value)} value={inputUserName}/>
+
+          <input className={styles.input} type="password" id="sipassword" placeholder="Password" 
+          onChange={(e) => setInputPassword(e.target.value)} value={inputPassword}/>
+
+          <button className={styles.button} onClick={() => { SignInUser() }}>Sign in</button>
           <div style={{color:'red',marginTop:'10px'}}>{errorMessage}</div>
           </div>
           
