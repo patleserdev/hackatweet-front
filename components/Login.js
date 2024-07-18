@@ -4,3 +4,21 @@ Au clic sur les boutons "Sign up" ou "Sign in", une modale doit s’ouvrir avec 
 
 Au clic sur le bouton dans la modale, l’application communique avec les backends et si les informations sont correctes, l’utilisateur est redirigé vers le composant Home. Dans le cas d’un Sign up, les informations de l’utilisateur sont enregistrées en BDD.
 */
+import styles from '../styles/Login.module.css';
+
+
+function Login() {
+    return (
+        <div>
+          <main className={styles.main}>
+        
+            <h1 className={styles.title}>
+              Welcome to login
+            </h1>
+          </main>
+        </div>
+      );
+    }
+    
+    export default Login;
+    
