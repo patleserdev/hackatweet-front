@@ -1,0 +1,46 @@
+.tweet {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80px;
+  border: #3b444f solid 1px;
+}
+
+.profileSection {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+}
+
+.textSection {
+  display: flex;
+  justify-content: flex-start;
+  color: rgb(219, 215, 215);
+  padding: 20px;
+}
+
+.likeSection {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  color: rgb(219, 215, 215);
+}
+
+.profileIcon {
+  padding-right: 10px;
+}
+
+.likeIcon {
+  padding-right: 10px;
+}
+
+.profileFirstname {
+  font-weight: bold;
+  color: rgb(219, 215, 215);
+  padding-right: 5px;
+}
+
+.profile {
+  font-weight: normal;
+  color: #5a6475;
+}
