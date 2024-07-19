@@ -15,10 +15,14 @@ function Tweet(props) {
 
 
   useEffect(() => {
-    if (likeBy.find((element) => element === user.userid ))
+    if (likeBy.length > 0)
     {
-    setHeartCustomStyle({ color: "#F81770", cursor: "pointer" });
+      if (likeBy.find((element) => element === user.userid ))
+      {
+      setHeartCustomStyle({ color: "#F81770", cursor: "pointer" });
+      }
     }
+ 
 }, [likeCount]);
   
   
@@ -63,7 +67,7 @@ function Tweet(props) {
         console.log(data);
         if (data.result) {
 
-          dispatch(addTweetsToStore(props.tweet_id));
+          dispatch(deleteTweet(props.tweet_id));
         }
       });
   };

@@ -42,18 +42,19 @@ function Trends() {
   }
   for (let onetweet of tweetData) {
     const hashtag = onetweet.trends;
-    hashtagsArr.push(...hashtag);
+    //hashtagsArr.push(...hashtag);
   }
   const newArr = removeDuplicates(hashtagsArr);
 
   // boucle sur tweetData et sur onetweet.trends et hashtagsArr qui incrementera de
   console.log(tweetData.trends);
   // for (let tweetTrends of tweetData.trends)
-
+   // # = %23
   const displayTrends = trendsData.map((element, i) => (
     <div className={styles.onetrend} key={i}>
       <div className={styles.trend}>
         <Link href={"/hashtag/" + element.trend}>{element.trend}</Link>
+     
       </div>
       <div className={styles.nbtweets}>{element.nbTweet} Tweet(s)</div>
     </div>

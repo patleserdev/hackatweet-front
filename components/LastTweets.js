@@ -17,6 +17,7 @@ function LastTweets() {
       .then((data) => {
         // console.log(data);
         const formattedData = data.result.map((e) => {
+          
           const tweetObj = {
             tweet_id: e.tweet_id,
             firstname: e.authorFirstname,
@@ -29,6 +30,8 @@ function LastTweets() {
             trends:e.trends
           };
           dispatch(addTweetsToStore(tweetObj));
+
+         
         });
         // setTweetData(formattedData);
       });
@@ -36,16 +39,16 @@ function LastTweets() {
 
   // delete option on token's tweets only
   const tweets = tweetData.map((data, i) => {
-    console.log(data.likeBy)
+   
     return (
       <Tweet
         key={i}
         {...data}
-        isLiked={data.likeBy.find((e) => e === userId) ? true : false}
+        isLiked={data.likeBy.length > 0 ? true : false}
         canDelete={data.authorId === userId ? true : false}
       />
     );
-  });
+  })
   // console.log(tweets);
 
   return <div className={styles.lastTweetsContainer}>{tweets}</div>;
