@@ -25,7 +25,6 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { addUserToStore } from '../reducers/user';
 
-
 function Home() {
 
   const router = useRouter()
@@ -42,6 +41,32 @@ function Home() {
     {
       router.push('/') 
     }
+    else
+    {
+      fetch("http://localhost:3000/tweets/")
+      .then((response) => response.json())
+      .then((data) => {
+        
+        let datasfromdb=[]
+        data.result.map((e) => {
+            datasfromdb.push({
+            tweet_id: e.tweet_id,
+            firstname: e.authorFirstname,
+            username: e.authorUsername,
+            authorId: e.authorId,
+            date: moment(e.date).startOf("minute").fromNow(),
+            text: e.text,
+            likeCount: e.likeCount,
+            likeBy: e.likeBy,
+            trends: e.trends,
+          })       
+        });
+        dispatch(addTweetsToStore(datasfromdb)); 
+        // setTweetData(formattedData);
+      });
+    }
+   
+
     }, []);
 
 
@@ -80,9 +105,11 @@ function Home() {
             date: moment(date.date).startOf("minute").fromNow(), 
             text : inputAddTweet ,
             likeCount : 0,
-            likeBy : 0
+            likeBy : []
+            
           }
             //tweets
+
             dispatch(addTweetsToStore(newTweet));
             console.log('dispatched')
       
@@ -122,7 +149,7 @@ function Home() {
 
 
         <div className={styles.center}>
-          <h2>Home</h2>
+          <h2>Home - {tweets.length} tweets</h2>
           <div className={styles.newtweet}>
             <div className={styles.newtweetbox}>
             <input className={styles.input} type="text" id="addtwwet" placeholder="What's up ?" 
@@ -141,7 +168,7 @@ function Home() {
         <div className={styles.right}>
         <h2>Trends</h2>
 
-        <Trends/>
+        
 
         </div>
           

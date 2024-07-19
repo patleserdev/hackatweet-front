@@ -14,13 +14,6 @@ function Tweet(props) {
 
   const user = useSelector((state) => state.user.value);
 
-  // useEffect(() => {
-  //   if (likeBy.find((element) => element === user.userid)) {
-  //     setHeartCustomStyle();
-  //   }
-  // }, [likeCount]);
-
-
   let heartCustomStyle;
   if (isLike) {
     heartCustomStyle = { color: "#F81770", cursor: "pointer" };

@@ -9,7 +9,7 @@ export const tweetsSlice = createSlice({
   initialState,
   reducers: {
     addTweetsToStore: (state, action) => {
-      state.value.push(action.payload);
+      state.value=(action.payload);
       //   console.log(action.payload);
     },
     deleteTweet: (state, action) => {
