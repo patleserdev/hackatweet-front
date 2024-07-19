@@ -134,7 +134,6 @@ function Home() {
         </div>
         <div className={styles.right}>
         <h2>Trends</h2>
-        manque le reducer lasttweets
 
         <Trends/>
 
