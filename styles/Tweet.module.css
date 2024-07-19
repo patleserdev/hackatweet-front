@@ -23,6 +23,7 @@
 .likeSection {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   padding: 15px;
   color: rgb(219, 215, 215);
 }
@@ -38,6 +39,10 @@
 
 .likeIcon {
   padding-right: 10px;
+}
+
+.deleteIcon {
+  padding-left: 20px;
 }
 
 .profileFirstname {

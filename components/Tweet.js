@@ -1,38 +1,61 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTweet } from "../reducers/tweets.js";
 import styles from "../styles/Tweet.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function Tweet(props) {
   const [likeCount, setLikeCount] = useState(props.likeCount);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.value.token);
 
-  let heartCustomStyle;
-  // const handleLikeButton = () => {
-  //   // route to add or remove like
-  //   fetch(`http://localhost:3000/tweets/${props.tweet_id}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       token: token, // A CHANGER QUAND USESELECTOR() DU STORE USER
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       // change icon color depending on back-end response
-  //       if (data.action === "removed") {
-  //         heartCustomStyle = { cursor: "pointer" };
-  //         setLikeCount(likeCount - 1);
-  //       } else if (data.action === "added") {
-  //         heartCustomStyle = { color: "#F81770", cursor: "pointer" };
-  //         setLikeCount(likeCount + 1);
-  //       } else {
-  //       }
-  //     });
-  // };
+  let heartCustomStyle = { cursor: "pointer" };
+  if (props.isLiked) {
+    heartCustomStyle = { color: "#F81770", cursor: "pointer" };
+  }
 
-  // const handleDeleteButton = () => {
-  //   // fetch route to delete !!!
-  // };
+  let deleteCustomStyle = { cursor: "pointer" };
+
+  const handleLikeButton = () => {
+    // route to add or remove like
+    fetch(`http://localhost:3000/tweets/${props.tweet_id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        token: token, // A CHANGER QUAND USESELECTOR() DU STORE USER
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // change icon color depending on back-end response
+        if (data.action === "removed") {
+          setLikeCount(likeCount - 1);
+          console.log(likeCount);
+        } else if (data.action === "added") {
+          setLikeCount(likeCount + 1);
+          console.log(likeCount);
+        }
+      });
+  };
+
+  const handleDeleteButton = () => {
+    fetch(`http://localhost:3000/tweets/${token}/${props.tweet_id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        // token: token, // A CHANGER QUAND USESELECTOR() DU STORE USER
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.result) {
+          dispatch(deleteTweet(props));
+        }
+      });
+  };
 
   return (
     <div className={styles.tweet}>
@@ -47,17 +70,18 @@ function Tweet(props) {
         <FontAwesomeIcon
           onClick={() => handleLikeButton()}
           className={styles.likeIcon}
-          style={heartCustomStyle}
           icon={faHeart}
+          style={heartCustomStyle}
         />
-        {props.likeCount}
+        <span style={heartCustomStyle}>{props.likeCount}</span>
         {props.canDelete && (
           <FontAwesomeIcon
             onClick={() => {
               handleDeleteButton();
             }}
-            className={styles.likeIcon}
+            className={styles.deleteIcon}
             icon={faTrash}
+            style={deleteCustomStyle}
           />
         )}
       </div>
