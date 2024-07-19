@@ -15,7 +15,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import LastTweets from './LastTweets'
 import Trends from './Trends'
-
+import moment from "moment";
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
@@ -33,14 +33,14 @@ function Home() {
 
   const user = useSelector((state) => state.user.value);
   const [inputAddTweet,setInputAddTweet]=useState('')
+  const [inputError,setInputError]=useState('')
 
-  useEffect(() => {
-  if (!user.token)
-  {
-    
-    router.push('/') 
-  }
-  }, []);
+    useEffect(() => {
+    if (!user.token)
+    {
+      router.push('/') 
+    }
+    }, []);
 
 
     //deconnexion et retour sur page login
@@ -49,24 +49,45 @@ function Home() {
       router.push('/')     
     }
 
+    // ajout d'un tweet
     function handleAddTweet()
     {
-      // récupérer l'input
-      const pattern=/([@][A-z]+)|([#][A-z]+)/g
-      let trends=inputAddTweet.match(pattern);
-      let splitted = inputAddTweet.split(pattern)
-      console.log(splitted)
-      // si inputAddTweet.length supérieur à 280 : message d'erreur --- traité dans la vue
-      // trier les données - le content - les trends 
-      // fetch les trends 
-      // récupérer dans un tableau les id des trends
-      // fetch le nouveau tweet avec le tableau de trends
-      // afficher le tweet
-      // alimenter le tableau des trends
-
+      if (inputAddTweet.length > 280)
+      {
+        setInputError('Trop de caractères')
+      }
+      else
+      {
+        // récupérer l'input
+        const pattern=/([@][A-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ]+)|([#][A-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ]+)/g
+        let trends=inputAddTweet.match(pattern);
+      
+        fetch('http://localhost:3000/tweets/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({token: user.token, text: inputAddTweet,trends:trends }),
+        })
+        .then(response => response.json())
+        .then((data)=> {
+        if (data.result)
+        {
+          let date=new Date()
+          let newTweet={
+            tweet_id : data.tweet_id, 
+            firstname:user.firstname,
+            username : user.username, 
+            date: moment(date.date).startOf("minute").fromNow(), 
+            text : inputAddTweet ,
+            likeCount : 0}
+        // ADD NEWTEET TO LASTTWEETS
+        }
+        else
+        {
+          setInputError('Erreur lors de l\'ajout du tweet')
+        }
+        })
+     }
     }
-   
-
 
     return (
       <div>
@@ -74,28 +95,25 @@ function Home() {
         
         <div className={styles.left}>
         <div className={styles.logo}>
-        
-        <Link href='/home'>
+          <Link href='/home'>
+          <div>
           <Image className={styles.logoImg} title="Go to home page" src="/pictures/grand-logo-twitter.png" alt="logo" 
           width={50} height={50} />
+          </div>
           </Link>
           </div>
-
           <div className={styles.bottomBox}>
             <div className={styles.userInfo}>
-            
             <FontAwesomeIcon className={styles.avatar} icon={faUser} />
             <div className={styles.userInfoContent}>
             <div className={styles.firstname}>{user.firstname}</div>
             <div className={styles.username}>@{user.username}</div>
-            
             </div>
             </div>
             <button className={styles.logout} onClick={()=> {handeLogout()}} >Logout</button>
-          
           </div>
-
         </div>
+
 
         <div className={styles.center}>
           <h2>Home</h2>
@@ -105,10 +123,9 @@ function Home() {
             onChange={(e) => setInputAddTweet(e.target.value)} value={inputAddTweet}/>
             </div>
             <div className={styles.newtweetactions}>
-            { inputAddTweet.length > 280 &&<div className={styles.error}>Trop de caractères !!!</div>}
+            { inputAddTweet.length > 280 &&<div className={styles.error}>{inputError}</div>}
                <div>{inputAddTweet.length}/280</div>
               <div><button className={styles.tweetbutton} onClick={()=>{handleAddTweet()}}>Tweet</button></div>
-
             </div>
           </div>
 
@@ -117,8 +134,10 @@ function Home() {
         </div>
         <div className={styles.right}>
         <h2>Trends</h2>
+        manque le reducer lasttweets
 
         <Trends/>
+
         </div>
           
         </main>
