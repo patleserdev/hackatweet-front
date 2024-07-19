@@ -9,25 +9,31 @@
 .profileSection {
   display: flex;
   justify-content: flex-start;
-  padding: 20px;
+  align-items: center;
+  padding: 15px;
 }
 
 .textSection {
   display: flex;
   justify-content: flex-start;
   color: rgb(219, 215, 215);
-  padding: 20px;
+  padding: 15px;
 }
 
 .likeSection {
   display: flex;
   justify-content: flex-start;
-  padding: 20px;
+  padding: 15px;
   color: rgb(219, 215, 215);
 }
 
 .profileIcon {
   padding-right: 10px;
+  color: #fff;
+
+  padding: 15px;
+  border-radius: 50px;
+  background-color: #4d8bc2;
 }
 
 .likeIcon {
@@ -38,9 +44,16 @@
   font-weight: bold;
   color: rgb(219, 215, 215);
   padding-right: 5px;
+  padding-left: 10px;
 }
 
 .profile {
   font-weight: normal;
   color: #5a6475;
+}
+
+.profiledate {
+  font-weight: normal;
+  color: #5a6475;
+  padding-left: 5px;
 }
