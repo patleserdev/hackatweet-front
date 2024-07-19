@@ -13,7 +13,7 @@ export const tweetsSlice = createSlice({
       //   console.log(action.payload);
     },
     deleteTweet: (state, action) => {
-      state.value.filter((e) => e !== action.payload);
+      state.value.filter((e) => e.tweet_id !== action.payload);
     },
   },
 });

@@ -36,6 +36,7 @@ function LastTweets() {
 
   // delete option on token's tweets only
   const tweets = tweetData.map((data, i) => {
+    console.log(data.likeBy)
     return (
       <Tweet
         key={i}

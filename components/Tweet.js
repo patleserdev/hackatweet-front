@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTweet } from "../reducers/tweets.js";
+import { deleteTweet,addTweetsToStore } from "../reducers/tweets.js";
 import styles from "../styles/Tweet.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -9,11 +9,10 @@ function Tweet(props) {
   const [likeCount, setLikeCount] = useState(props.likeCount);
   const [likeBy, setLikeBy] = useState(props.likeBy);
   const [heartCustomStyle, setHeartCustomStyle] = useState({ cursor: "pointer" });
-
-
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.value);
+
 
   useEffect(() => {
     if (likeBy.find((element) => element === user.userid ))
@@ -28,6 +27,7 @@ function Tweet(props) {
   let deleteCustomStyle = { cursor: "pointer" };
 
   const handleLikeButton = () => {
+
     // route to add or remove like
     fetch(`http://localhost:3000/tweets/${user.token}/${props.tweet_id}/`, {
       method: "PUT",
@@ -62,7 +62,8 @@ function Tweet(props) {
       .then((data) => {
         console.log(data);
         if (data.result) {
-          dispatch(deleteTweet(props));
+
+          dispatch(addTweetsToStore(props.tweet_id));
         }
       });
   };

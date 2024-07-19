@@ -12,6 +12,7 @@ La partie de droite affiche les "Trends", c'est-à-dire tous les hashtags qui on
 import styles from '../styles/Home.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { deleteTweet,addTweetsToStore } from "../reducers/tweets.js";
 
 import LastTweets from './LastTweets'
 import Trends from './Trends'
@@ -32,6 +33,7 @@ function Home() {
   //const router = useRouter()
 
   const user = useSelector((state) => state.user.value);
+  const tweets = useSelector((state) => state.tweets.value);
   const [inputAddTweet,setInputAddTweet]=useState('')
   const [inputError,setInputError]=useState('')
 
@@ -74,12 +76,16 @@ function Home() {
           let date=new Date()
           let newTweet={
             tweet_id : data.tweet_id, 
-            firstname:user.firstname,
-            username : user.username, 
+            author :user.userid,
             date: moment(date.date).startOf("minute").fromNow(), 
             text : inputAddTweet ,
-            likeCount : 0}
-        // ADD NEWTEET TO LASTTWEETS
+            likeCount : 0,
+            likeBy : 0
+          }
+            //tweets
+            dispatch(addTweetsToStore(newTweet));
+            console.log('dispatched')
+      
         }
         else
         {
