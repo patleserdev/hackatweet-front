@@ -27,7 +27,7 @@ function LastTweets() {
             text: e.text,
             likeCount: e.likeCount,
             likeBy: e.likeBy,
-            trends:e.trends
+            trends: e.trends,
           };
           dispatch(addTweetsToStore(tweetObj));
 
@@ -39,7 +39,7 @@ function LastTweets() {
 
   // delete option on token's tweets only
   const tweets = tweetData.map((data, i) => {
-   
+    // console.log(data.likeBy)
     return (
       <Tweet
         key={i}

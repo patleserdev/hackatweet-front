@@ -1,39 +1,38 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTweet,addTweetsToStore } from "../reducers/tweets.js";
+import { deleteTweet, addTweetsToStore } from "../reducers/tweets.js";
 import styles from "../styles/Tweet.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function Tweet(props) {
   const [likeCount, setLikeCount] = useState(props.likeCount);
+  const [isLike, setLike] = useState(props.isLiked);
   const [likeBy, setLikeBy] = useState(props.likeBy);
-  const [heartCustomStyle, setHeartCustomStyle] = useState({ cursor: "pointer" });
+
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.value);
 
+  // useEffect(() => {
+  //   if (likeBy.find((element) => element === user.userid)) {
+  //     setHeartCustomStyle();
+  //   }
+  // }, [likeCount]);
 
-  useEffect(() => {
-    if (likeBy.length > 0)
-    {
-      if (likeBy.find((element) => element === user.userid ))
-      {
-      setHeartCustomStyle({ color: "#F81770", cursor: "pointer" });
-      }
-    }
- 
-}, [likeCount]);
-  
-  
 
+  let heartCustomStyle;
+  if (isLike) {
+    heartCustomStyle = { color: "#F81770", cursor: "pointer" };
+  } else {
+    heartCustomStyle = { cursor: "pointer" };
+  }
 
   let deleteCustomStyle = { cursor: "pointer" };
 
   const handleLikeButton = () => {
-
     // route to add or remove like
-    fetch(`http://localhost:3000/tweets/${user.token}/${props.tweet_id}/`, {
+    fetch(`http://localhost:3000/tweets/${props.tweet_id}/`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -46,12 +45,17 @@ function Tweet(props) {
         // change icon color depending on back-end response
         if (data.action === "removed") {
           setLikeCount(likeCount - 1);
-          setHeartCustomStyle({cursor: "pointer" })
-          setLikeBy(likeBy.filter((element) => {element != user.userid}))
+          setLike(false);
+          setLikeBy(
+            likeBy.filter((element) => {
+              element != user.userid;
+            })
+          );
         } else if (data.action === "added") {
           setLikeCount(likeCount + 1);
-          setHeartCustomStyle({ color: "#F81770", cursor: "pointer" })
-          setLikeBy([...likeBy,user.userid])
+          setLike(true);
+
+          setLikeBy([...likeBy, user.userid]);
         }
       });
   };
@@ -60,7 +64,6 @@ function Tweet(props) {
     fetch(`http://localhost:3000/tweets/${user.token}/${props.tweet_id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      
     })
       .then((response) => response.json())
       .then((data) => {
@@ -68,6 +71,8 @@ function Tweet(props) {
         if (data.result) {
 
           dispatch(deleteTweet(props.tweet_id));
+
+
         }
       });
   };
