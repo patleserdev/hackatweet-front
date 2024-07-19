@@ -47,7 +47,7 @@ function Trends() {
   const newArr = removeDuplicates(hashtagsArr);
 
   // boucle sur tweetData et sur onetweet.trends et hashtagsArr qui incrementera de
-  console.log(tweetData.trends);
+  // console.log(tweetData.trends);
   // for (let tweetTrends of tweetData.trends)
 
   const displayTrends = trendsData.map((element, i) => (
