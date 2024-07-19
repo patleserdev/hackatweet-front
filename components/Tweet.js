@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTweet } from "../reducers/tweets.js";
 import styles from "../styles/Tweet.module.css";
@@ -7,23 +7,33 @@ import { faUser, faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function Tweet(props) {
   const [likeCount, setLikeCount] = useState(props.likeCount);
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.value.token);
+  const [likeBy, setLikeBy] = useState(props.likeBy);
+  const [heartCustomStyle, setHeartCustomStyle] = useState({ cursor: "pointer" });
 
-  let heartCustomStyle = { cursor: "pointer" };
-  if (props.isLiked) {
-    heartCustomStyle = { color: "#F81770", cursor: "pointer" };
-  }
+
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user.value);
+
+  useEffect(() => {
+    if (likeBy.find((element) => element === user.userid ))
+    {
+    setHeartCustomStyle({ color: "#F81770", cursor: "pointer" });
+    }
+}, [likeCount]);
+  
+  
+
 
   let deleteCustomStyle = { cursor: "pointer" };
 
   const handleLikeButton = () => {
     // route to add or remove like
-    fetch(`http://localhost:3000/tweets/${props.tweet_id}`, {
+    fetch(`http://localhost:3000/tweets/${user.token}/${props.tweet_id}/`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        token: token, // A CHANGER QUAND USESELECTOR() DU STORE USER
+        token: user.token, // A CHANGER QUAND USESELECTOR() DU STORE USER
       }),
     })
       .then((response) => response.json())
@@ -32,21 +42,21 @@ function Tweet(props) {
         // change icon color depending on back-end response
         if (data.action === "removed") {
           setLikeCount(likeCount - 1);
-          console.log(likeCount);
+          setHeartCustomStyle({cursor: "pointer" })
+          setLikeBy(likeBy.filter((element) => {element != user.userid}))
         } else if (data.action === "added") {
           setLikeCount(likeCount + 1);
-          console.log(likeCount);
+          setHeartCustomStyle({ color: "#F81770", cursor: "pointer" })
+          setLikeBy([...likeBy,user.userid])
         }
       });
   };
 
   const handleDeleteButton = () => {
-    fetch(`http://localhost:3000/tweets/${token}/${props.tweet_id}`, {
+    fetch(`http://localhost:3000/tweets/${user.token}/${props.tweet_id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        // token: token, // A CHANGER QUAND USESELECTOR() DU STORE USER
-      }),
+      
     })
       .then((response) => response.json())
       .then((data) => {
@@ -73,7 +83,7 @@ function Tweet(props) {
           icon={faHeart}
           style={heartCustomStyle}
         />
-        <span style={heartCustomStyle}>{props.likeCount}</span>
+        <span style={heartCustomStyle}>{likeCount}</span>
         {props.canDelete && (
           <FontAwesomeIcon
             onClick={() => {
