@@ -1,35 +1,34 @@
 import styles from '../styles/Trends.module.css';
 import { useState ,useEffect } from 'react';
+
+import { useDispatch, useSelector } from "react-redux";
+
 function Trends() {
 
-  const [trendsData, setTrendsData] = useState([]);
  
+  const [trendsData, setTrendsData] = useState([]);
+  const tweetData = useSelector((state) => state.tweets.value);
 
   useEffect(() => {
-    fetch("http://localhost:3000/tweets/")
-      .then((response) => response.json())
-      .then((data) => {
-         console.log(data);
-        const formattedData = [] 
-        data.result.map((e) => {
-            for(let trend of e.trends)
+  
+            let formattedData=[]
+            for(let onetweet of tweetData)
             {
               
-              if (formattedData.find((element) => {element == trend
-              return false}))
-              {
-                formattedData.push(trend)
-              }
-              
+              // if (formattedData.find((element) => {element == trend
+              // return false}))
+              // {
+              //   formattedData.push(trend)
+              // }
+              console.log(onetweet.trends)
             }
             
          
-        });
 
         // récupérer uniquement les #
-       console.log(formattedData)
+       
      
-      });
+     
   }, []);
 
 

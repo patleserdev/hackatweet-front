@@ -105,7 +105,6 @@ margin-bottom: 20px;
 .center
 {
     height: 100vh;
-    border:1px solid green;
     width: 50%;
     color:#fff;
     padding-left:20px;
@@ -185,7 +184,6 @@ padding-left:10px;
     padding-left:20px;
     padding-right: 20px;
     height: 100vh;
-    border:1px solid green;
     width: 30%;
     color:#fff;
 }

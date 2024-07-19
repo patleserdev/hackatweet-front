@@ -26,6 +26,7 @@ function LastTweets() {
             text: e.text,
             likeCount: e.likeCount,
             likeBy: e.likeBy,
+            trends:e.trends
           };
           dispatch(addTweetsToStore(tweetObj));
         });
